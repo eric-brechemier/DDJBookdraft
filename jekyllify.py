@@ -88,8 +88,9 @@ def clean_html(elem):
             caption = elem.find('.//div[@id="' + id_ + '"]/div[@class="title"]')
             #print caption
             if caption is not None:
-                print caption
                 a.text = caption.text.split('.')[0]
+            else:
+                print a.attrib
     return html.tostring(elem)
 
 
