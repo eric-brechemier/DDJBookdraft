@@ -79,9 +79,17 @@ short_title: Welcome
 
 def clean_html(elem):
     for img in elem.findall('.//img'):
-        #print dir(img)
         if 'width' in img.attrib:
             del img.attrib['width']
+    for a in elem.findall('.//a'):
+        if a.get('href').startswith('#'):
+            id_ = a.get('href').strip('#')
+            #print id_
+            caption = elem.find('.//div[@id="' + id_ + '"]/div[@class="title"]')
+            #print caption
+            if caption is not None:
+                print caption
+                a.text = caption.text.split('.')[0]
     return html.tostring(elem)
 
 

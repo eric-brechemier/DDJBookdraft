@@ -144,11 +144,15 @@ a {
   color: #e04349;
 }
 
-h2, h3 {
+h2, h3, h4 {
   font-family: 'AllerBold', 'OpenSansSemibold', Helvetica, sans-serif;
   color: #e04349;
   margin-bottom: 1em;
   clear: right;
+}
+
+h4 {
+  font-size: 1em;
 }
 
 ul.toc li {
@@ -219,8 +223,32 @@ footer p {
   margin-right: -380px;
 }
 
+.btn-warning {
+  background-color: #e66a6f;
+  background-image: -moz-linear-gradient(top, #eb8589, #e04349);
+  background-image: -ms-linear-gradient(top, #eb8589, #e04349);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eb8589), to(#e04349));
+  background-image: -webkit-linear-gradient(top, #eb8589, #e04349);
+  background-image: -o-linear-gradient(top, #eb8589, #e04349);
+  background-image: linear-gradient(top, #eb8589, #e04349);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eb8589', endColorstr='#e04349', GradientType=0);
+  border-color: #e04349 #e04349 #b81e24;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e04349;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
 
-
-
-
-
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.btn-warning:hover,
+.btn-warning:active,
+.btn-warning.active,
+.btn-warning.disabled,
+.btn-warning[disabled] {
+  background-color: #e04349;
+  *background-color: #dc2d34;
+}
+.btn-warning:active,
+.btn-warning.active {
+  background-color: #ce2229 \9;
+}
