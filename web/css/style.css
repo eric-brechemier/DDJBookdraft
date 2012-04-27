@@ -41,7 +41,7 @@ html, body {
 }
 
 #main.container {
-  margin-top: 2em;
+  margin-top: 1em;
   background-color: #fff; 
   padding: 1em;
 
@@ -171,9 +171,11 @@ ul.toc li {
 }
 
 .header .version {
+  /*
   position: absolute;
   right: 10em;
   display: block;
+  */
   font-size: 14px;
   color: #666;
   font-variant: small-caps;
@@ -208,3 +210,17 @@ footer p {
 .book-nav-top {
   margin-bottom: 1em;
 }
+
+#get-updates {
+  display: none;
+  width: 700px;
+
+  margin-left: -350px;
+  margin-right: -380px;
+}
+
+
+
+
+
+

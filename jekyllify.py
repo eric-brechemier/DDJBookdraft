@@ -9,15 +9,22 @@ title: {{title.replace(':', '&59;')}}
 short_title: {{short_title.replace(':', ' -')}}
 ---
 
-<div class="btn-group book-nav-top">
-    <a class='btn' href="index.html">Home</a>
-    {% if parent_name %}
-        <a href="{{parent_name}}.html" class="btn">Chapter: {{parent_title}}</a>
-    {% endif %}
-    {% if next_name %}
-        <a href="{{next_name}}.html" class="btn">Next: {{next_title.rsplit('(',1)[0]}}</a>
-    {% endif %}
+<div class='row'>
+    <div class="btn-group book-nav-top span8">
+        <a class='btn' href="index.html">Home</a>
+        {% if parent_name %}
+            <a href="{{parent_name}}.html" class="btn">Chapter: {{parent_title}}</a>
+        {% endif %}
+        {% if next_name %}
+            <a href="{{next_name}}.html" class="btn">Next: {{next_title.rsplit('(',1)[0]}}</a>
+        {% endif %}
+    </div>
+    <div class="span4 right-align">
+        <span class='st_facebook_hcount' displayText='Facebook'></span>
+        <span class='st_twitter_hcount' st_title="{{ short_title }} #ddjbook" displayText='Tweet'></span>
+    </div>
 </div>
+
 
 <div id='content'>
     {{body}}
@@ -45,13 +52,14 @@ short_title: {{short_title.replace(':', ' -')}}
 
 INDEX = """---
 layout: default
-title: Index
+title: Welcome
+short_title: Welcome
 ---
 
 <div class="row">
     <div class='span6'>
         {% for chapter in segments %}
-        {% if not chapter.parent_name and chapter.name != 'preface' %}
+        {% if not chapter.parent_name %}
             <h2><a href='{{chapter.name}}.html'>{{chapter.title}}</a></h2>
             <ul class='toc'>
                 {% for segment in chapter.children %}
@@ -62,13 +70,19 @@ title: Index
         {% endfor %}
     </div>
     <div class='span6'>
-        <div class='well'>
-            <img src='img/cover_print.png' align='center'>
-        </div>
+        <img src='img/cover_print.png' align='right'>
     </div>
 </div>
 
 """
+
+
+def clean_html(elem):
+    for img in elem.findall('.//img'):
+        #print dir(img)
+        if 'width' in img.attrib:
+            del img.attrib['width']
+    return html.tostring(elem)
 
 
 def write_segment(data, out_dir):
@@ -82,6 +96,7 @@ def write_index(segments, out_dir):
 
 
 def write_file(content, out_dir, name):
+    print name
     file_name = os.path.join(out_dir, name + '.html')
     fh = file(file_name, 'wb')
     fh.write(content.encode('utf-8'))
@@ -93,15 +108,16 @@ def split_up(in_file, out_dir):
     doc = html.parse(in_file)
     for sect1 in doc.findall('//div[@class="sect1"]'):
         sect1_title = sect1.find('h2')
+        print [sect1_title.text]
         name = sect1_title.get('id').strip('_')
         sect1_title_text = sect1_title.text
         for i, sect2 in enumerate(sect1.findall('.//div[@class="sect2"]')):
-        #    #print dir(sect2)
             sect2_title = sect2.find('h3')
+            print [sect2_title.text]
             segments.append({
                 'name': name + '_' + str(i),
                 'title': sect2_title.text,
-                'body': html.tostring(sect2),
+                'body': clean_html(sect2),
                 'el': sect2,
                 'parent_name': name,
                 'parent_title': sect1_title_text
@@ -110,14 +126,14 @@ def split_up(in_file, out_dir):
         segments.append({
             'name': name,
             'title': sect1_title_text,
-            'body': html.tostring(sect1),
+            'body': clean_html(sect1),
             'el': sect1,
             'parent_name': None,
             'parent_title': None
             })
 
     for segment in segments:
-        segment['short_title'] = segment['title'].rsplit('(')[0]
+        segment['short_title'] = segment['title'] #.rsplit('(')[0]
         segment['children'] = filter(lambda s: s['parent_name'] == segment['name'], segments)
 
     sorted_segments = []
@@ -138,8 +154,8 @@ def split_up(in_file, out_dir):
                         segment['next_name'] = s['name']
                         break
             else:
-                segment['next_title'] = sorted_segments[i+1]['title']
-                segment['next_name'] = sorted_segments[i+1]['name']
+                segment['next_title'] = sorted_segments[i + 1]['title']
+                segment['next_name'] = sorted_segments[i + 1]['name']
         #pprint(segment)
         write_segment(segment, out_dir)
     write_index(sorted_segments, out_dir)

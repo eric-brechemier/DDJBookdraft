@@ -17,6 +17,7 @@
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
   <script src="js/libs/modernizr-2.5.3.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="js/libs/bootstrap-modal.js"></script>
 </head>
 <body>
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -25,14 +26,12 @@
       <div class='row'>
         <div class='title span7'>
           Data Journalism Handbook
-          <span class='version'>version 1.0</span>
+          <span class='version'>1.0 BETA</span>
         </div>
         <div class='span5 right-align'>
 
-          <a href="#">Get Updates</a>
-          <span class='st_facebook_hcount' displayText='Facebook'></span>
-          <span class='st_twitter_hcount' st_title="{{ page.short_title }} #ddjbook" displayText='Tweet'></span>
-          
+          <a class="btn btn-success" data-toggle="modal" href="#get-updates">
+            <i class='icon-eye-open icon-white'></i>  Get Updates</a>
           
         </div>
       </div>
@@ -66,6 +65,16 @@
   <script type="text/javascript">stLight.options({
     publisher: "ur-219149ff-684c-bafa-159-8fba20c9e82b"
   }); </script>
+
+  <div class='modal fade' id='get-updates'>
+    <div class="modal-header">
+      <h3>Subscribe to updates of the Handbook.</h3>
+
+      <div class="modal-body">
+        <iframe style="height:50em; width:100%; border-width:0;" src="https://docs.google.com/spreadsheet/viewform?formkey=dElfSlJVTnZBM3VDV3hGZWxYSjlVSGc6MQ"></iframe>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
