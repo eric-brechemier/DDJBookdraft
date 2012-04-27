@@ -10,7 +10,7 @@ short_title: {{short_title.replace(':', ' -')}}
 ---
 
 <div class='row'>
-    <div class="btn-group book-nav-top span8">
+    <div class="btn-group book-nav-top span9">
         <a class='btn' href="index.html">Home</a>
         {% if parent_name %}
             <a href="{{parent_name}}.html" class="btn">Chapter: {{parent_title}}</a>
@@ -19,7 +19,7 @@ short_title: {{short_title.replace(':', ' -')}}
             <a href="{{next_name}}.html" class="btn">Next: {{next_title.rsplit('(',1)[0]}}</a>
         {% endif %}
     </div>
-    <div class="span4 right-align">
+    <div class="span3 right-align">
         <span class='st_facebook_hcount' displayText='Facebook'></span>
         <span class='st_twitter_hcount' st_title="{{ short_title }} #ddjbook" displayText='Tweet'></span>
     </div>
